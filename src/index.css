@@ -15,3 +15,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.custom-handle {
+  position: absolute;
+  background: transparent;
+  border-radius: 0;
+  z-index: 1;
+}
+
+.custom-handle.custom-handle-n {
+  top: 0;
+  left: 50%;
+  cursor: n-resize;
+  transform: translateX(-50%);
+}
+.custom-handle.custom-handle-s {
+  bottom: 0;
+  left: 50%;
+  cursor: s-resize;
+  transform: translateX(-50%);
+}
+.custom-handle.custom-handle-e {
+  right: 0;
+  top: 50%;
+  cursor: e-resize;
+  transform: translateY(-50%);
+}
+.custom-handle.custom-handle-w {
+  left: 0;
+  top: 50%;
+  cursor: w-resize;
+  transform: translateY(-50%);
+}
+.custom-handle.custom-handle-ne {
+  right: 0;
+  top: 0;
+  cursor: ne-resize;
+}
+.custom-handle.custom-handle-nw {
+  left: 0;
+  top: 0;
+  cursor: nw-resize;
+}
+.custom-handle.custom-handle-se {
+  right: 0;
+  bottom: 0;
+  cursor: se-resize;
+}
+.custom-handle.custom-handle-sw {
+  left: 0;
+  bottom: 0;
+  cursor: sw-resize;
+}
