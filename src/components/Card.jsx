@@ -1,10 +1,34 @@
 // Card Component
-import React from "react";
+import React, { useState } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
 import "react-resizable/css/styles.css";
 
-const Card = ({ card, onDragStop, onResizeStop, openModal }) => {
+const Card = ({
+  card,
+  onDragStop,
+  onResizeStop,
+  openModal,
+  updateCardText,
+}) => {
+  const [editing, setEditing] = useState(false);
+  const [inputText, setInputText] = useState(card.text);
+
+  const handleDoubleClick = () => {
+    setEditing(true);
+  };
+
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      updateCardText(card.id, inputText);
+      setEditing(false);
+    }
+  };
+
   return (
     <Draggable
       defaultPosition={{ x: card.x, y: card.y }}
@@ -20,16 +44,22 @@ const Card = ({ card, onDragStop, onResizeStop, openModal }) => {
         }
         resizeHandles={["n", "s", "e", "w", "ne", "nw", "se", "sw"]}
       >
-        <div
-          className="bg-white border-[1px] border-[#ddd] rounded-md p-3 shadow-md overflow-hidden h-full w-full box-border"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className="bg-white border-[3px] border-transparent rounded-md p-3 shadow-md overflow-hidden h-full w-full box-border flex flex-col justify-between active:border-sky-500">
           <div style={{ flex: 1 }}>
-            <p>{card.text.substring(0, 25)}...</p>
+            {editing ? (
+              <input
+                className="w-full p-1 border rounded"
+                value={inputText}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                onBlur={() => setEditing(false)}
+                autoFocus
+              />
+            ) : (
+              <p onDoubleClick={handleDoubleClick}>
+                {card.text.substring(0, 25)}...
+              </p>
+            )}
           </div>
           <button
             className="bg-blue-500 text-white text-sm font-medium border-none px-4 py-2 rounded-lg cursor-pointer"

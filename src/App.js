@@ -13,9 +13,11 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    borderRadius: "10px",
+    padding: "15px",
   },
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    backgroundColor: "rgba(0, 0, 0, 0.75)", // Darker overlay background
   },
 };
 
@@ -66,8 +68,29 @@ const App = () => {
     );
   };
 
+  const updateCardText = (id, newText) => {
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === id ? { ...card, text: newText } : card
+      )
+    );
+  };
+
+  const addNewCard = () => {
+    const newCard = {
+      id: cards.length + 1,
+      text: "This is a new card! Double-click to edit.",
+      x: 150,
+      y: 150,
+      width: 150,
+      height: 150,
+    };
+
+    setCards((prevCards) => [...prevCards, newCard]);
+  };
+
   return (
-    <Canvas>
+    <Canvas addNewCard={addNewCard}>
       {cards.map((card) => (
         <Card
           key={card.id}
@@ -75,6 +98,7 @@ const App = () => {
           onDragStop={onDragStop}
           onResizeStop={onResizeStop}
           openModal={openModal}
+          updateCardText={updateCardText}
         />
       ))}
       <Modal
@@ -83,16 +107,10 @@ const App = () => {
         style={customStyles}
         contentLabel="Card Details Modal"
       >
-        <div
-          className="close-button flex items-center justify-center p-2 bg-transparent"
-          onClick={closeModal}
-        >
-          <IoClose size={22} className="text-slate-400" />
-        </div>
         {selectedCard && (
-          <div>
-            <h2 className="text-lg font-semibold">Card Details</h2>
-            <p>{selectedCard.text}</p>
+          <div className="max-w-[450px]">
+            <h2 className="text-xl font-semibold">Card Details</h2>
+            <p className="text-lg text-gray-900">{selectedCard.text}</p>
           </div>
         )}
       </Modal>
