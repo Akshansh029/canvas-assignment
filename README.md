@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Canvas Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Description:**  
+A Drag and Drop UI implemented using ReactJS. Users can create a canvas with draggable and resizable cards, connect them with arrows, and retain the layout upon reloading.
 
-## Available Scripts
+![image](https://github.com/user-attachments/assets/4b494a6b-c136-4d26-aceb-fd0638455cc3)
 
-In the project directory, you can run:
 
-### `npm start`
+## Features
+- Add cards with custom text.
+- Scrollable infinite canvas.
+- Cards can be dragged anywhere on the canvas.
+- Open modal feature to show the full text.
+- Connect cards with arrows.
+- Remove cards from the canvas.
+- Retain card and arrow positions upon page reload.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the project repository:
 
-### `npm test`
+    ```bash
+    git clone <repository-url>
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Navigate to the project directory:
 
-### `npm run build`
+    ```bash
+    cd <project-directory>
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Install the dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Running the App
 
-### `npm run eject`
+To start the development server and run the app on `localhost:3000`, use:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  ```bash
+  npm run start
+  ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Add cards by clicking the "Add Card" button.
+- Drag and drop cards anywhere on the canvas.
+- Double-click on a card to edit the text.
+- Click on a card to connect it with another using arrows.
+- Scroll through the infinite canvas as needed.
+- Open modals to view the full text.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributing
 
-## Learn More
+If you want to contribute to this project, please follow these steps:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Create a new Pull Request.
