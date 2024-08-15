@@ -21,7 +21,6 @@ const customStyles = {
 
 const App = () => {
   const [cards, setCards] = useState(() => {
-    // Load cards from localStorage on initial load
     const savedCards = localStorage.getItem("cards");
     return savedCards
       ? JSON.parse(savedCards)
@@ -48,12 +47,10 @@ const App = () => {
   const [showMore, setShowMore] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [connections, setConnections] = useState(() => {
-    // Load connections from localStorage on initial load
     const savedConnections = localStorage.getItem("connections");
     return savedConnections ? JSON.parse(savedConnections) : [];
   });
 
-  // Save cards and connections to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("cards", JSON.stringify(cards));
     localStorage.setItem("connections", JSON.stringify(connections));
@@ -104,6 +101,11 @@ const App = () => {
     setCards((prevCards) => [...prevCards, newCard]);
   };
 
+  const removeCard = (cardId) => {
+    setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
+    closeModal();
+  };
+
   return (
     <Canvas addNewCard={addNewCard}>
       {cards.map((card) => (
@@ -126,6 +128,12 @@ const App = () => {
           <div className="max-w-[450px]">
             <h2 className="text-xl font-semibold">Card Details</h2>
             <p className="text-lg text-gray-900">{selectedCard.text}</p>
+            <button
+              className="rounded-lg z-10 flex items-center gap-1 px-3 py-2 bg-red-500 active:bg-red-600 text-white font-medium mx-auto mt-4"
+              onClick={() => removeCard(selectedCard.id)}
+            >
+              Remove card
+            </button>
           </div>
         )}
       </Modal>
