@@ -37,7 +37,7 @@ const Card = ({
       <ResizableBox
         width={card.width}
         height={card.height}
-        minConstraints={[100, 50]}
+        minConstraints={[150, 100]}
         maxConstraints={[600, 400]}
         onResizeStop={(e, { size }) =>
           onResizeStop(card.id, size.width, size.height)

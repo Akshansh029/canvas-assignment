@@ -1,9 +1,7 @@
-// App Component
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Canvas from "./components/Canvas";
 import Card from "./components/Card";
 import Modal from "react-modal";
-import { IoClose } from "react-icons/io5";
 
 const customStyles = {
   content: {
@@ -17,32 +15,49 @@ const customStyles = {
     padding: "15px",
   },
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.75)", // Darker overlay background
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
   },
 };
 
 const App = () => {
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-      x: 100,
-      y: 100,
-      width: 150,
-      height: 150,
-    },
-    {
-      id: 2,
-      text: "Morbi finibus eros sit amet mauris volutpat scelerisque",
-      x: 400,
-      y: 200,
-      width: 150,
-      height: 150,
-    },
-  ]);
+  const [cards, setCards] = useState(() => {
+    // Load cards from localStorage on initial load
+    const savedCards = localStorage.getItem("cards");
+    return savedCards
+      ? JSON.parse(savedCards)
+      : [
+          {
+            id: 1,
+            text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+            x: 100,
+            y: 100,
+            width: 150,
+            height: 150,
+          },
+          {
+            id: 2,
+            text: "Morbi finibus eros sit amet mauris volutpat scelerisque",
+            x: 400,
+            y: 200,
+            width: 150,
+            height: 150,
+          },
+        ];
+  });
 
   const [showMore, setShowMore] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [connections, setConnections] = useState(() => {
+    // Load connections from localStorage on initial load
+    const savedConnections = localStorage.getItem("connections");
+    return savedConnections ? JSON.parse(savedConnections) : [];
+  });
+
+  // Save cards and connections to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("cards", JSON.stringify(cards));
+    localStorage.setItem("connections", JSON.stringify(connections));
+  }, [cards, connections]);
 
   const openModal = (card) => {
     setSelectedCard(card);
