@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Canvas from "./components/Canvas";
 import Card from "./components/Card";
 import Modal from "react-modal";
+import { V2Example } from "./components/myComponent";
 
 const customStyles = {
   content: {
