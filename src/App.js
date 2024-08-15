@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Canvas from "./components/Canvas";
 import Card from "./components/Card";
 import Modal from "react-modal";
-import { V2Example } from "./components/myComponent";
+import Xarrow from "react-xarrows";
 
 const customStyles = {
   content: {
@@ -28,7 +28,7 @@ const App = () => {
       : [
           {
             id: 1,
-            text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+            text: "First card",
             x: 100,
             y: 100,
             width: 150,
@@ -36,7 +36,7 @@ const App = () => {
           },
           {
             id: 2,
-            text: "Morbi finibus eros sit amet mauris volutpat scelerisque",
+            text: "Second card",
             x: 400,
             y: 200,
             width: 150,
@@ -51,6 +51,9 @@ const App = () => {
     const savedConnections = localStorage.getItem("connections");
     return savedConnections ? JSON.parse(savedConnections) : [];
   });
+
+  const [startCard, setStartCard] = useState(null);
+  const [endCard, setEndCard] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("cards", JSON.stringify(cards));
@@ -104,7 +107,39 @@ const App = () => {
 
   const removeCard = (cardId) => {
     setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
+    setConnections((prevConnections) =>
+      prevConnections.filter(
+        (connection) =>
+          connection.from !== `card-${cardId}` &&
+          connection.to !== `card-${cardId}`
+      )
+    );
     closeModal();
+  };
+
+  const handleCardClick = (card) => {
+    if (!startCard) {
+      console.log("Card is selected");
+      setStartCard(card.id);
+    } else if (!endCard && card.id !== startCard) {
+      setEndCard(card.id);
+    }
+  };
+
+  const addConnection = () => {
+    if (startCard && endCard) {
+      setConnections((prevConnections) => [
+        ...prevConnections,
+        { from: `card-${startCard}`, to: `card-${endCard}` },
+      ]);
+      setStartCard(null);
+      setEndCard(null);
+    }
+  };
+
+  const cancelSelection = () => {
+    setStartCard(null);
+    setEndCard(null);
   };
 
   return (
@@ -117,8 +152,39 @@ const App = () => {
           onResizeStop={onResizeStop}
           openModal={openModal}
           updateCardText={updateCardText}
+          onClick={() => handleCardClick(card)}
+          isSelected={startCard === card.id || endCard === card.id}
         />
       ))}
+
+      {startCard && endCard && (
+        <div className="fixed bottom-4 right-4 flex gap-2">
+          <button
+            className=" bg-green-500 text-white px-4 py-2 rounded"
+            onClick={addConnection}
+          >
+            Connect Cards
+          </button>
+          <button
+            className=" bg-red-500 text-white px-4 py-2 rounded"
+            onClick={cancelSelection}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
+      {connections.map((connection, index) => (
+        <Xarrow
+          key={index}
+          start={connection.from}
+          end={connection.to}
+          color="black"
+          strokeWidth={2}
+          headSize={6}
+        />
+      ))}
+
       <Modal
         isOpen={showMore}
         onRequestClose={closeModal}

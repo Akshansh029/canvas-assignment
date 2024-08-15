@@ -1,4 +1,3 @@
-// Card Component
 import React, { useState } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
@@ -10,6 +9,8 @@ const Card = ({
   onResizeStop,
   openModal,
   updateCardText,
+  onClick,
+  isSelected,
 }) => {
   const [editing, setEditing] = useState(false);
   const [inputText, setInputText] = useState(card.text);
@@ -44,7 +45,13 @@ const Card = ({
         }
         resizeHandles={["n", "s", "e", "w", "ne", "nw", "se", "sw"]}
       >
-        <div className="bg-white border-[3px] border-transparent rounded-md p-3 shadow-md overflow-hidden h-full w-full box-border flex flex-col justify-between active:border-sky-500">
+        <div
+          id={`card-${card.id}`}
+          className={`bg-white border-[3px] ${
+            isSelected ? "border-blue-500" : "border-transparent"
+          } rounded-md p-3 shadow-md overflow-hidden h-full w-full box-border flex flex-col justify-between cursor-pointer`}
+          onClick={() => onClick(card)}
+        >
           <div style={{ flex: 1 }}>
             {editing ? (
               <input
@@ -63,7 +70,10 @@ const Card = ({
           </div>
           <button
             className="bg-blue-500 text-white text-sm font-medium border-none px-4 py-2 rounded-lg cursor-pointer"
-            onClick={() => openModal(card)}
+            onClick={(e) => {
+              e.stopPropagation();
+              openModal(card);
+            }}
           >
             Show more
           </button>
